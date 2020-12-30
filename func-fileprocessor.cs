@@ -11,8 +11,17 @@ namespace FileProcessor.Function
         [FunctionName("func_fileprocessor")]
         public static void Run([BlobTrigger("samples-workitems/{name}", Connection = "DestinationStorage")] Stream myBlob, string name, ILogger log)
         {
-            log.LogInformation($"C# Blob trigger function Processed blob\n Name:{name} \n Size: {myBlob.Length} Bytes \n CurrTime: {System.DateTime.Now}");
-            // write code to validate headers and content.
+            log.LogInformation($"C# Blob trigger function Processed blob\n Name:{name} \n Size: {myBlob.Length} Bytes");
+            if (myBlob.Length <= 0)
+            {
+                log.LogInformation("Empty file received.");
+
+            }
+            else
+            {
+                // write code to validate headers and content.
+
+            }
         }
     }
 }
